@@ -1,0 +1,153 @@
+<html>
+<meta charset="utf-8">
+<script type="text/javascript" src="jquery-1.10.2.min.js"></script>
+<script>
+
+$(document).ready(function(){
+	
+	$('.img').click(function(){
+		
+		var src=$(this).attr('alt');
+		
+		$('.box').show();
+		
+		$('.closebtn').show();
+		
+		$('.box').html('<img src='+src+'>');
+		
+		$('.shadow').show();
+		
+	});
+	
+	
+	
+	$('.closebtn').click(function(){
+		
+		$('.box').hide();
+		$('.closebtn').hide();
+		$('.shadow').hide();
+		
+	});
+	
+	
+	
+});
+
+</script>
+<style>
+
+body{ font-family:Verdana, Geneva, sans-serif; color:#FFF; font-size:11px; background-color:#F60; margin:0; padding:0;}
+
+#lessoncup{ width:800px; height:600px; border:solid #CCC 0; padding:5px; margin:0 auto;}
+
+h1{ width:250px; margin:0 auto; padding:10px;}
+
+
+ul{ list-style:none; margin:0; padding:0;}
+
+li{float:left; width:300px; height:290px; margin:0 50px;}
+
+.image{
+	cursor:pointer;
+	overflow:hidden;
+	position:absolute;
+	border:solid #CCC 5px;
+	height: 250px;
+	width: 300px;
+}
+
+
+.caption {
+	width:100%;
+	height:18px;
+	background-color: rgba(0,0,0,0.5);
+	padding:10px;
+	position: absolute;
+		-webkit-transition: all 0.5s ease-out;
+		-moz-transition: all 0.5s ease-out;
+		-o-transition: all 0.5s ease-out;
+		-ms-transition: all 0.5s ease-out;	
+		transition: all 0.5s ease-out;
+
+}
+
+.image:hover .caption {
+	-moz-transform: translateY(-100%);
+	-o-transform: translateY(-100%);
+	-webkit-transform: translateY(-100%);
+	transform: translateY(-100%);
+}
+
+.box{width:261px; height:221px; margin:50px 45px;z-index:1; border:solid  #EAEAEA 10px; display:none; position:absolute; background-color:#333; overflow:hidden;}
+.box1{width:600px; height:300px; margin:50px 45px;z-index:1; border:solid  #EAEAEA 10px; display:none; position:absolute; background-color:#333; overflow:hidden;}
+.shadow{background-color:rgba(0,0,0,0.80); width:100%; height:100%; position:absolute; z-index:1; display:none;}
+
+.closebtn{padding:10px;background-color:#F60; position:absolute; cursor:pointer; text-transform:capitalize;display:none; z-index:3;
+margin:60px 0 0 55px;}
+</style>
+<body>
+
+<script>
+
+function OnClick(form){
+	switch(form.but.value){
+		case "start":
+			form.but.value="pause";
+			sDate=new Date();
+			sTime=sDate.getTime();
+			break;
+		case "pause":
+			var x=parseInt(form.tTest.value);
+			form.tTest.value=x+1;
+			form.but.value="start";
+			eDate=new Date();
+			eTime=eDate.getTime();
+			iThis=eTime-sTime;
+			form.tThis.value=iThis/1000;
+			form.tDiff.value=(Math.abs(5000-iThis))/1000;
+			if(form.tBest.value==""||Math.abs(vBest-5000)>Math.abs(iThis-5000)){
+				vBest=iThis;
+				form.tBest.value=form.tThis.value;
+				alert("靠！你刷新記錄惹！！！！！好棒棒!");
+						
+				$('.box').show();
+				$('.closebtn').show();
+				$('.box').width('261');
+				$('.box').height('221');
+				$('.box').html('<img src='+"best.jpg"+'>');
+				//$('.shadow').show();
+			}
+			else if(Math.abs(iThis-5000)>1000){
+				alert("老實說 你有點弱！加油好嗎？");
+				$('.box').show();
+				$('.closebtn').show();
+				$('.box').html('<img src='+"bebetter.jpg"+'>');
+				$('.box').width('600');
+				$('.box').height('300');
+				$('.shadow').show();
+			}
+			
+			
+			break;
+			
+	}
+}
+</script>
+<form>
+<center>
+<input type="button" name="but" value="start" onclick=OnClick(this.form)><br>
+嘗試次數<input type="text"  name="tTest" value="0">次<br>
+此次表現<input type="text" name="tThis" value="">sec<br> 
+<font>相差　　</font><input type="text" name="tDiff" value="">sec<br>
+最佳表現 <input type="text" name="tBest" value="">sec<br>
+</form>
+
+<div id="lessoncup">
+<div class="box">
+</div>
+<div class="closebtn">Close</div>
+
+</div>
+
+</body>
+</html>

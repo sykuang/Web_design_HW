@@ -1,0 +1,138 @@
+<html>
+<head>
+<meta charset=utf-8>
+<title>Album</title>    
+<link rel="stylesheet" href="css/default.css" />
+	<link rel="stylesheet" href="css/main.css" />
+	<link rel="stylesheet" href="css/milkbox/milkbox.css" />
+	
+	<style type="text/css" title="text/css">
+		#test{ width:15px; color:#fff; }
+	</style>
+	
+ 	<script src="js/mootools-core.js"></script>
+ 	<script src="js/mootools-more.js"></script> 
+	<script src="js/milkbox-yc.js"></script>
+
+	<script type="text/javascript">
+	// <![CDATA[
+		var addJsonGalleries;
+		
+		$(window).addEvent('domready',function(){
+			
+			addJsonGalleries = function(){
+			
+				//add 3 json galleries
+				milkbox.addGalleries([
+					{ name:'obj-gall1', autoplay:true, autoplay_delay:4, files:[ { href:'img/01b.jpg', title:'Test title' }, { href:'swf/testswf1.swf?var1=yellow&var2=300', size:"width:550, height:400" } ]},
+					
+					{ name:'obj-gall2', autoplay_delay:9, files:[ { href:'swf/testswf2.swf?var1=ultex&var2=30', size:"width:400, height:300" }, { href:'swf/testswf1.swf', size:"width:550, height:400" } ]},
+					
+					{ name:'obj-gall3', files:[ { href:'img/croda-b.jpg' }, { href:'img/ska-b.jpg' } ]}
+				]);
+			
+			}//addObjGalleries
+			
+		});
+	// ]]>
+	</script>
+<script>
+    changetime=5;
+	ImageArr=new Array();
+	for(i=1;i<6;i++){
+		ImageArr[i]=new Image();
+		ImageArr[i].src="000"+i+".jpg";
+	}
+	function ini(){
+	photo.src=ImageArr[1].src;
+	photo.alt="1";
+	}
+	function changePhoto(){
+		var tindex=photo.alt;
+		var index=((parseInt(tindex)+1)%6);
+		if(index==0)index++;
+		photo.src=ImageArr[index].src;
+		photo.alt=index;
+		SrcText.value=photo.src
+		leftTime.value=changetime;
+		clearTimeout(timeout);
+		clearInterval(timeInter);
+		timeInter=setInterval("countTime();",1000);
+		timeout=setTimeout("changePhoto();",changetime*1000); 
+	}
+	function countTime(){
+		time=parseInt(leftTime.value);
+		time--;
+		leftTime.value=time;
+	}
+	function changeTime(){
+	     buttonStop.value="暫停倒數模式";
+		clearTimeout(timeout);
+		clearInterval(timeInter);
+		var lTime=leftTime.value;
+		changetime=lTime;
+		timeout=setTimeout("changePhoto()",lTime*1000);
+	    timeInter=setInterval("countTime();",1000);
+	    
+	}
+	function onclick(){
+	    clearTimeout(timeout);
+	    clearInterval(timeInter);
+	}
+	function onStop(){
+	    clearTimeout(timeout);
+	    clearInterval(timeInter);
+	}
+    function onBclick(){
+        if(buttonStop.value=="暫停倒數模式"){
+            buttonStop.value="恢復倒數模式";
+            clearTimeout(timeout);
+	        clearInterval(timeInter);
+			photo.onclick="milkbox.open('obj-gall1',1)";
+        }
+        else{
+            clearTimeout(timeout);
+	        clearInterval(timeInter);
+            buttonStop.value="暫停倒數模式";
+            var lTime=leftTime.value;
+		     changetime=lTime;
+            timeout=setTimeout("changePhoto()",lTime*1000);
+	        timeInter=setInterval("countTime();",1000);
+	    
+            
+        }
+            
+    }
+</script>
+
+</head>
+
+<body>
+<table id="gallery">
+			<tr>
+<td><a href="0001.jpg" data-milkbox="milkbox:g1" title="<a href='http://tw.yahoo.com' target='_blank'>yahoo</a>" value="fuck"><img src="0001.jpg"></a></td>
+<tr><td><a href="0002.jpg" data-milkbox="milkbox:g1" title=""><img src="0002.jpg"></a></td></tr>
+<td><a href="0003.jpg" data-milkbox="milkbox:g1" title=""></a></td>
+<td><a href="0004.jpg" data-milkbox="milkbox:g1" title=""></a></td>
+<td><a href="0005.jpg" data-milkbox="milkbox:g1" title=""></a></td>
+</tr>
+		</table>
+	<img src="" id="photo" alt="" onclick="changePhoto()">
+	<form>
+	檔案網址
+	<input type="text" value="00" id="SrcText" size="100"><br>
+	剩餘時間
+	<input type="text" value="5"  id="leftTime" onchange="" onclick="onBclick()">
+	<input type ="button" id="buttonStop" value="暫停倒數模式" onclick ="onBclick()">
+	<br>
+	    
+	</form>
+	<script>
+		timeout=setTimeout("changePhoto();",5000); 
+		photo.src=ImageArr[1].src;
+		photo.alt="1";
+		SrcText.value=photo.src;
+		timeInter=setInterval("countTime();",1000);
+	</script>
+</body>
+</html>

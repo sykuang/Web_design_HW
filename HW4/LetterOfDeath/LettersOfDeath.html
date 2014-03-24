@@ -1,0 +1,187 @@
+<html>
+<script>
+    CharCodeA=65;
+    correctChar=0;
+    arrWord=["APPLE","CAT","CAR","NATIONAL","FAT","STUDENT","TAIWAN","CUP","SOVEREIGNTY","DEMOCRACY","SCIENCE"];
+    indexOfWord=Math.floor(Math.random()*arrWord.length);
+    function onButtonClick(char){
+        //alert(charC);
+        var textPos=arrWord[indexOfWord].search(char);
+        var Button=document.getElementById("button"+char);
+            Button.style.visibility='hidden';
+        if(textPos!=-1){
+            var Text=document.getElementById("text"+textPos);
+            Text.value=char;
+            correctChar++;
+            
+        }
+            
+            
+        else{
+                imgPend.alt=(parseInt(imgPend.alt)+1);
+                if(parseInt(imgPend.alt)<7){
+                    imgPend.src="pend"+imgPend.alt+".gif";
+                }
+                else {
+                    imgPend.src="malvenk1.gif";
+                    $('.box').show();
+				$('.closebtn').show();
+				$('.box').html('<img src='+"bebetter.jpg"+'>');
+				$('.box').width('600');
+				$('.box').height('300');
+				$('.shadow').show();
+                    
+                }
+        }
+        while(textPos!=-1){
+            var subStrOfWord=arrWord[indexOfWord].substring(textPos+1);
+            var tempTextPos=subStrOfWord.search(char);
+            if(tempTextPos!=-1){
+                textPos=tempTextPos+textPos+1;
+                var Text=document.getElementById("text"+textPos);
+                Text.value=char;
+                correctChar++;
+            }
+            else
+                textPos=-1;
+        }
+        if(correctChar==arrWord[indexOfWord].length)
+            alert("bingo");
+       
+    }
+    
+</script>
+<script type="text/javascript" src="jquery-1.10.2.min.js"></script>
+<script>
+
+$(document).ready(function(){
+	
+	$('.img').click(function(){
+		
+		var src=$(this).attr('alt');
+		
+		$('.box').show();
+		
+		$('.closebtn').show();
+		
+		$('.box').html('<img src='+src+'>');
+		
+		$('.shadow').show();
+		
+	});
+	
+	
+	
+	$('.closebtn').click(function(){
+		
+		$('.box').hide();
+		$('.closebtn').hide();
+		$('.shadow').hide();
+		
+	});
+	
+	
+	
+});
+
+</script>
+<style>
+
+body{ font-family:Verdana, Geneva, sans-serif; color:#FFF; font-size:11px; background-color:#FFF; margin:0; padding:0;}
+
+#lessoncup{ width:800px; height:600px; border:solid #CCC 0; padding:5px; margin:0 auto;}
+
+h1{ width:250px; margin:0 auto; padding:10px;}
+
+
+ul{ list-style:none; margin:0; padding:0;}
+
+li{float:left; width:300px; height:290px; margin:0 50px;}
+
+.image{
+	cursor:pointer;
+	overflow:hidden;
+	position:absolute;
+	border:solid #CCC 5px;
+	height: 250px;
+	width: 300px;
+}
+
+
+.caption {
+	width:100%;
+	height:18px;
+	background-color: rgba(0,0,0,0.5);
+	padding:10px;
+	position: absolute;
+		-webkit-transition: all 0.5s ease-out;
+		-moz-transition: all 0.5s ease-out;
+		-o-transition: all 0.5s ease-out;
+		-ms-transition: all 0.5s ease-out;	
+		transition: all 0.5s ease-out;
+
+}
+
+.image:hover .caption {
+	-moz-transform: translateY(-100%);
+	-o-transform: translateY(-100%);
+	-webkit-transform: translateY(-100%);
+	transform: translateY(-100%);
+}
+
+.box{width:700px; height:400px; margin:50px 45px;z-index:1; border:solid  #EAEAEA 10px; display:none;  background-color:#333; overflow:hidden;}
+
+.shadow{background-color:rgba(0,0,0,0.80); width:100%; height:100%; position:absolute; z-index:1; display:none;}
+
+.closebtn{padding:10px;background-color:#F60; position:absolute; cursor:pointer; text-transform:capitalize;display:none; z-index:3;
+margin:60px 0 0 55px;}
+</style>
+
+
+
+<body>
+  <div class="shadow">
+</div>
+   
+    <div class="box" ></div></div>
+    <div class="closebtn">Close</div>
+
+
+<center>
+
+   <img src="pend0.gif" alt="0" id="imgPend">
+<form>
+<script>
+ 
+for(i=0;i<arrWord[indexOfWord].length;i++){
+    document.writeln("<input type='text' size='1' id='text"+i+"'>");   
+}
+document.writeln("<br>");
+
+
+for(i=0;i<10;i++){
+    var char=String.fromCharCode(CharCodeA+i);
+   
+    var strClick='onButtonClick("'+char+'")';
+    document.writeln("<input type='button' value='"+char+"'"+"id='button"+char+"'"+"onclick='"+strClick+"'"+">");
+}
+document.writeln("<br>");
+for(i=10;i<20;i++){
+        var char=String.fromCharCode(CharCodeA+i);
+        var strClick='onButtonClick("'+char+'")';
+         document.writeln("<input type='button' value='"+char+"'"+"id='button"+char+"'"+"onclick='"+strClick+"'"+">");
+}
+document.writeln("<br>");
+for(i=20;i<26;i++){
+        var char=String.fromCharCode(CharCodeA+i);
+        var strClick='onButtonClick("'+char+'")';
+          document.writeln("<input type='button' value='"+char+"'"+"id='button"+char+"'"+"onclick='"+strClick+"'"+">");
+}
+</script>
+<br>
+<input type="button" value="Reset" onclick="location.reload()">
+</form>
+        </center>
+
+</body>
+</html>

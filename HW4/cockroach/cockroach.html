@@ -1,0 +1,96 @@
+<html>
+<meta charset="utf-8" >
+<head>
+<title>cockroach</title>
+</head>
+<script>
+direction=0;
+function openWindow(){
+	randName=Math.random();
+	
+	window.open("cockroach.html"+"#"+imgGirl.height*1.5,Math.random(),"location=1,toolbar=1,menubar=1,status=1");
+	//imgGirl.height=imGirl.height*1.5;
+	//imgGirl.height=imGirl.weight*1.5;
+}
+function onWindowLoad(){
+	var height=parseInt(location.hash.substring(1));
+	if(height>50){
+		
+		imgGirl.height=height;
+		
+		
+	}
+}
+function onMove(){
+		if(Math.random()<0.8){
+			switch(direction){
+			case 0:
+				imgDiv.style.posLeft=imgDiv.style.posLeft+10;
+				break;
+			case 1:
+				imgDiv.style.posLeft=imgDiv.style.posLeft-10;
+				break;
+			case 2:
+				imgDiv.style.posTop=imgDiv.style.posTop+10;
+				break;
+			case 3:
+				imgDiv.style.posTop=imgDiv.style.posTop-10;
+				break;
+            
+			}
+		}
+		else if(Math.random()>0.9){
+		  var randDirection=Math.floor(Math.random()*4);
+		  switch(randDirection){
+			case 0:
+				direction=0;
+				imgDiv.style.posLeft=imgDiv.style.posLeft+10;
+				break;
+			case 1:
+				direction=1;
+				imgDiv.style.posLeft=imgDiv.style.posLeft-10;
+				break;
+			case 2:
+				direction=2;
+				imgDiv.style.posTop=imgDiv.style.posTop+10;
+				break;
+			case 3:
+				direction=3;
+				imgDiv.style.posTop=imgDiv.style.posTop-10;
+				break;
+		  }
+		}
+        else 
+            direction=4;
+}
+function onMoveCursor(){
+    var leftBorder=imgDiv.style.posLeft-event.clientX;
+    var rightBorder=event.clientX-(imgDiv.style.posLeft+parseInt(imgGirl.width));
+    
+    if (event.clientY>=imgDiv.style.posTop && event.clientY<=(imgDiv.style.posTop+imgGirl.width)){
+        if(leftBorder<10 && leftBorder>0  )  imgDiv.style.posLeft=imgDiv.style.posLeft+50;
+        else if(rightBorder<10&&rightBorder>0 )imgDiv.style.posLeft=imgDiv.style.posLeft-50;
+    }
+    var topBorder=imgDiv.style.posTop-event.clientY;
+    var downBorder=event.clientY-(imgDiv.style.posTop+imgGirl.height);
+    if(event.clientX>=imgDiv.style.posLeft && event.clientX<=(imgDiv.style.posLeft+imgGirl.height)){
+        if(topBorder<10&& topBorder>0) imgDiv.style.posTop=imgDiv.style.posTop +50;
+        else if(downBorder <10 && downBorder >0) imgDiv.style.posTop=imgDiv.style.posTop-50;
+    }
+}
+function onClick(){
+    alert("你打到我惹");
+    window.close();
+}
+</script>
+<body onBeforeUnload="openWindow()" onLoad="onWindowLoad()" onmousemove="onMoveCursor()">
+<div id=imgDiv  style="position:absolute; top:100px; left:100px;  background-color:red"><img src="girl.jpg" height="50" id="imgGirl" onClick="onClick()"></div>
+
+<script>
+setInterval("onMove()",20);
+		
+	
+		
+
+</script>
+</body>

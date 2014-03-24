@@ -1,0 +1,29 @@
+<html>
+<head>
+<meta HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+</head>
+<script>
+function listProb(obj,objName){
+for (var i in obj)
+		document.writeln(objName+"."+i+" = "+obj[i]+"<br>");
+}
+</script>
+<body>
+<form method=get id=form1>
+	Name: <input name="myname" size=10 maxlength=20 value="蕭亞軒">
+</form>
+<script>
+var obj=document.forms[0];
+
+document.writeln("<font color=green>form的屬性列表</font><br>");
+var objName="form1";
+for (var i in obj)
+		document.writeln(objName+"."+i+" = "+obj[i]+"<br>");
+document.writeln("<br><br><br><br><br><font color=red>myname 的屬性列表</font><br><br><br><br><br><br>");
+for (var i in obj.elements["myname"])
+		document.writeln("myname."+i+" = "+obj.elements["myname"][i]+"<br>");
+
+</script>
+
+</body>
+</html>

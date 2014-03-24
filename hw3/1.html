@@ -1,0 +1,58 @@
+<html>
+<meta charset=utf-8>
+
+<script>
+function iterpreter(){
+	var time=new Date();
+	var start=time.getTime();
+	document.writeln("<table><tbody>");
+	for(m=10;m<21;m++){
+		
+		var x=1;
+		var y=1;
+		var z=1;
+		
+		for(i=2;i<=m;i++){
+			x=x*i;
+		}
+		
+		for(i=2;i<=(m-(m/2));i++){
+			y=y*i;
+			
+		}
+		
+		for(i=2;i<=(m/2);i++){
+			z=z*i;
+		}
+		
+		document.writeln("<tr><td>"+x/(y*z)+"</td></tr>");
+	}
+	var time1=new Date();
+	var end=time1.getTime();
+	document.writeln("</tbody></table> total Time:"+(end-start)+"<br>");
+	
+	
+}
+function recurrsive(m,n){
+	if(n==1)
+		return m;
+	if(m==n)
+		return 1;
+	return recurrsive(m-1,n-1)+recurrsive(m-1,n);
+}
+</script>
+<body>
+<script> iterpreter();</script>
+<script>
+var time=new Date();
+var start=time.getTime();
+for(i=10;i<=20;i++){
+	document.writeln(recurrsive(i,Math.floor(i/2))+"<br>");
+	
+}
+var time1=new Date();
+var end=time1.getTime();
+document.writeln("Total Time:"+(end-start));
+</script>
+</body>
+</html>
